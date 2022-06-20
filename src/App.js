@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Cards from "./components/cards/Cards";
+import Loader from "./components/loader/Loader";
+import Popup from "./components/popup/Popup";
+import { getCards } from "./data/cardsFetch";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [cards, setCards] = useState(null);
+	const [popupActive, setPopupActive] = useState(false);
+	const [popupContent, setPopupContent] = useState([]);
+	const newCards = cards && cards.slice(0, 6);
+
+	useEffect(() => {
+		const loadData = async () => {
+			const data = await getCards();
+			setCards(data);
+		};
+		loadData();
+	}, []);
+
+	return (
+		<div className='App'>
+			{cards ? (
+				<Cards
+					cards={newCards}
+					setActive={setPopupActive}
+					setPopupContent={setPopupContent}
+				/>
+			) : (
+				<Loader />
+			)}
+			<Popup
+				active={popupActive}
+				setActive={setPopupActive}
+				popupContent={popupContent}
+			/>
+		</div>
+	);
 }
 
 export default App;

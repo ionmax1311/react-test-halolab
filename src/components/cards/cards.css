@@ -1,0 +1,21 @@
+.cards {
+	max-width: 1130px;
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 40px;
+}
+.cards__btn-cheapest {
+	font-size: 24px;
+	line-height: 28px;
+	border: none;
+	cursor: pointer;
+	border-radius: 16px;
+	transition: 0.3s;
+	background-color: #50daa8;
+	color: #fff;
+	display: block;
+	width: 235px;
+	height: 60px;
+	margin: 69px auto 0;
+}
